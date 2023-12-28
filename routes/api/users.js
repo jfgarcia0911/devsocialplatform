@@ -32,9 +32,7 @@ router.post(
             //Check if user exixst
             if (user) {
                 return res.status(500).json({ errors: [{ msg: 'User email already exists' }] })
-            } else {
-
-            }
+            } 
             // Get Users gravatar
             const avatar = gravatar.url(email, {
                 s: '200',
@@ -63,7 +61,6 @@ router.post(
                     id: user.id
                 }
             }
-
             jwt.sign(payload, config.get('jwtToken'), { expiresIn: 360000 }, (err, token) => {
                 if (err) {
                     throw err;
