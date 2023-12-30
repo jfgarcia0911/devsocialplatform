@@ -13,7 +13,6 @@ const User = require('../../models/Users')
 router.get('/me', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar'])  //comes with the token
-        console.log(profile)
 
         if (!profile) {
             return res.status(400).json({ msg: 'There is no profile for this user' })
@@ -75,7 +74,6 @@ router.post('/', [
     if (facebook) profileFields.social.facebook = facebook
     if (linkedin) profileFields.social.linkedin = linkedin
     if (instagram) profileFields.social.instagram = instagram
-    console.log(profileFields)
     try {
         let profile = await Profile.findOne({ user: req.user.id })
 
@@ -247,7 +245,6 @@ router.delete('/education/:edu_id',auth, async (req, res) => {
         const profile = await Profile.findOne({user: req.user.id})
         // const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id)
         const removeIndex = profile.education.findIndex(item => item.id == req.params.edu_id)
-        console.log(removeIndex)
         if(removeIndex < 0 ){
             return res.status(400).send({msg: "Delete denied"})
         }
