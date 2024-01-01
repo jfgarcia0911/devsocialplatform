@@ -12,7 +12,11 @@ const EditProfile = ({
 
     useEffect(() => {
 		getCurrentProfile();
+		
+		
+	}, [loading, getCurrentProfile]);
 
+	useEffect(()=>{
 		setFormData({
 			company: loading || !profile.company ? "" : profile.company,
 			website: loading || !profile.website ? "" : profile.website,
@@ -31,7 +35,9 @@ const EditProfile = ({
 			youtube: loading || !profile.social.youtube ? "" : profile.social.youtube,
 			instagram: loading || !profile.social.instagram ? "" : profile.social.instagram,
 		});
-	}, [loading,getCurrentProfile, profile]);
+	},[profile,loading])
+	
+
 	const navigate = useNavigate();
 
 	const [formData, setFormData] = useState({
