@@ -3,19 +3,29 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfileById } from "../../actions/profile";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
 import ProfileGithub from "./ProfileGithub";
 
-const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
+const Profile = (
+	{ getProfileById, profile: { profile, loading }, auth },
+	props
+) => {
 	const params = useParams();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		getProfileById(params.id);
 	}, [getProfileById, params]);
+
+	const handleClick = () => {
+		navigate(-1);
+	};
+	console.log(location.state?.from);
 
 	return (
 		<>
@@ -23,8 +33,8 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
 				<Spinner />
 			) : (
 				<>
-					<Link to="/profiles" className="btn btn-light">
-						Back To Profiles
+					<Link onClick={handleClick} className="btn btn-light">
+						Go Back
 					</Link>
 					{auth.isAuthenticated && params.id === auth.user._id && (
 						<Link to="/edit-profile" className="btn btn-dark">
@@ -41,7 +51,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
 
 						{/* <!-- Experience --> */}
 						<div className="profile-exp bg-white p-2">
-                        <h2 class="text-primary">Experience</h2>
+							<h2 class="text-primary">Experience</h2>
 							{profile.experience.length > 0 ? (
 								<>
 									{profile.experience.map((exp) => {
@@ -60,7 +70,7 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
 
 						{/* <!-- Education --> */}
 						<div className="profile-edu bg-white p-2">
-                        <h2 class="text-primary">Education</h2>
+							<h2 class="text-primary">Education</h2>
 							{profile.education.length > 0 ? (
 								<>
 									{profile.education.map((edu) => {
@@ -79,9 +89,9 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
 
 						{/* <!-- Github --> */}
 
-                        {profile.githubusername && <ProfileGithub username={profile.githubusername}/>}
-
-						
+						{profile.githubusername && (
+							<ProfileGithub username={profile.githubusername} />
+						)}
 					</div>
 				</>
 			)}
