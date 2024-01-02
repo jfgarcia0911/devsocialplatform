@@ -28,7 +28,7 @@ const Profile = (
 	console.log(location.state?.from);
 
 	return (
-		<>
+		<section className="container">
 			{profile === null ? (
 				<Spinner />
 			) : (
@@ -95,7 +95,7 @@ const Profile = (
 					</div>
 				</>
 			)}
-		</>
+		</section>
 	);
 };
 

@@ -52,7 +52,7 @@ const AddEducation = ({ addEducation, setAlert }) => {
         };
    
 	return (
-		<>
+		<section className="container">
 			<h1 className="large text-primary">Add Your Education</h1>
 			<p className="lead">
 				<i className="fas fa-code-branch"></i> Add any
@@ -137,7 +137,7 @@ const AddEducation = ({ addEducation, setAlert }) => {
 					Go Back
 				</Link>
 			</form>
-		</>
+		</section>
 	);
 };
 

@@ -19,7 +19,7 @@ const Post = ({ getPost, post: { post, loading } }) => {
 	return loading || post === null ? (
 		<Spinner />
 	) : (
-		<>
+		<section className="container">
 			<Link to={`/posts`} class="btn btn-secondary">
 				Back to Posts
 			</Link>
@@ -37,7 +37,7 @@ const Post = ({ getPost, post: { post, loading } }) => {
 					);
 				})}
 			</div>
-		</>
+		</section>
 	);
 };
 
